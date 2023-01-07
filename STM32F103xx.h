@@ -1,6 +1,12 @@
 #ifndef STM32F103XX_H
 #define STM32F103XX_H
 	
+	/*--------------- INCLUDES AND READABILITY DEFINES  ---------------*/
+	#include <stdint.h>
+	
+	#define __vo volatile
+
+
 	/*--------------- MEMORY AND BUSES BASE ADDRESSES  ---------------*/
 	#define FLASH_BASE_ADDR 	0x08000000UL
 	#define SRAM_BASE_ADDR		0x20000000UL
@@ -60,5 +66,103 @@
 	#define TIM_15_BASE_ADDR 	( APB_2_BASE_ADDR + 0x4000U ) 
 	#define TIM_16_BASE_ADDR 	( APB_2_BASE_ADDR + 0x4400U ) 
 	#define TIM_17_BASE_ADDR 	( APB_2_BASE_ADDR + 0x4800U ) 
+
+	/*--------------- GPIO REGISTER's STRUCT  ---------------*/
+	typedef struct{
+		__vo uint32_t CRL;	
+		__vo uint32_t CRH;	
+		__vo uint32_t IDR;	
+		__vo uint32_t ODR;	
+		__vo uint32_t BSR;	
+		__vo uint32_t BRR;	
+		__vo uint32_t LCKR;	
+	}GPIO_RegStruct_t;
 	
+	/*--------------- GPIO PORTS DEF ---------------*/
+	#define GPIO_A 		( (GPIO_RegStruct_t*) GPIO_A_BASE_ADDR )	
+	#define GPIO_B 		( (GPIO_RegStruct_t*) GPIO_B_BASE_ADDR )	
+	#define GPIO_C 		( (GPIO_RegStruct_t*) GPIO_C_BASE_ADDR )	
+	#define GPIO_D 		( (GPIO_RegStruct_t*) GPIO_D_BASE_ADDR )	
+	#define GPIO_E 		( (GPIO_RegStruct_t*) GPIO_E_BASE_ADDR )	
+
+
+	/*--------------- RCC REGISTER's STRUCT  ---------------*/
+	typedef struct{
+		__vo uint32_t CR;	
+		__vo uint32_t CFGR;	
+		__vo uint32_t CIR;	
+		__vo uint32_t APB2RSTR;	
+		__vo uint32_t APB1RSTR;	
+		__vo uint32_t AHBENR;	
+		__vo uint32_t APB2ENR;	
+		__vo uint32_t APB1ENR;	
+		__vo uint32_t BDCR;	
+		__vo uint32_t CSR;
+		__vo uint32_t CFGR2;	
+	}RCC_RegStruct_t;
+	
+	/*--------------- RCC REGISTER's DEF ---------------*/
+	#define RCC 		( (RCC_RegStruct_t*) RCC_BASE_ADDR )	
+
+	/*--------------- APB2 CLOCK ENABLE MACROS ---------------*/
+	#define AFIO_CLK_ENABLE()	( RCC->APB2ENR |= 1<<0 )
+
+	#define GPIO_A_CLK_ENABLE()	( RCC->APB2ENR |= 1<<2 )
+	#define GPIO_B_CLK_ENABLE()	( RCC->APB2ENR |= 1<<3 )
+	#define GPIO_C_CLK_ENABLE()	( RCC->APB2ENR |= 1<<4 )
+	#define GPIO_D_CLK_ENABLE()	( RCC->APB2ENR |= 1<<5 )
+	#define GPIO_E_CLK_ENABLE()	( RCC->APB2ENR |= 1<<6 )
+	//#define GPIO_F_CLK_ENABLE()	( RCC->APB2ENR |= 1<<7 )    		PORT F y G?
+	//#define GPIO_G_CLK_ENABLE()	( RCC->APB2ENR |= 1<<8 )
+
+	#define ADC_1_CLK_ENABLE()	( RCC->APB2ENR |= 1<<9 )
+	
+	#define TIM_1_CLK_ENABLE()	( RCC->APB2ENR |= 1<<11 )
+	
+	#define SPI_1_CLK_ENABLE()	( RCC->APB2ENR |= 1<<12 )
+	
+	#define USART_1_CLK_ENABLE()	( RCC->APB2ENR |= 1<<14 )
+	
+	#define TIM_15_CLK_ENABLE()	( RCC->APB2ENR |= 1<<16 )
+	#define TIM_16_CLK_ENABLE()	( RCC->APB2ENR |= 1<<17 )
+	#define TIM_17_CLK_ENABLE()	( RCC->APB2ENR |= 1<<18 )
+	
+
+	/*--------------- APB1 CLOCK ENABLE MACROS ---------------*/
+	#define TIM_2_CLK_ENABLE()	( RCC->APB1ENR |= 1<<0 )
+	#define TIM_3_CLK_ENABLE()	( RCC->APB1ENR |= 1<<1 )
+	#define TIM_4_CLK_ENABLE()	( RCC->APB1ENR |= 1<<2 )
+	#define TIM_5_CLK_ENABLE()	( RCC->APB1ENR |= 1<<3 )
+	#define TIM_6_CLK_ENABLE()	( RCC->APB1ENR |= 1<<4 )
+	#define TIM_7_CLK_ENABLE()	( RCC->APB1ENR |= 1<<5 )
+	#define TIM_12_CLK_ENABLE()	( RCC->APB1ENR |= 1<<6 )
+	#define TIM_13_CLK_ENABLE()	( RCC->APB1ENR |= 1<<7 )
+	#define TIM_14_CLK_ENABLE()	( RCC->APB1ENR |= 1<<8 )
+	
+	#define WWD_CLK_ENABLE()	( RCC->APB1ENR |= 1<<11 )
+
+	#define SPI_2_CLK_ENABLE()	( RCC->APB1ENR |= 1<<14 )
+	#define SPI_3_CLK_ENABLE()	( RCC->APB1ENR |= 1<<15 )
+	
+	#define USART_2_CLK_ENABLE()	( RCC->APB1ENR |= 1<<17 )
+	#define USART_3_CLK_ENABLE()	( RCC->APB1ENR |= 1<<18 )
+	#define USART_4_CLK_ENABLE()	( RCC->APB1ENR |= 1<<19 )
+	#define USART_5_CLK_ENABLE()	( RCC->APB1ENR |= 1<<20 )
+	
+	#define I2C_1_CLK_ENABLE()	( RCC->APB1ENR |= 1<<21 )
+	#define I2C_2_CLK_ENABLE()	( RCC->APB1ENR |= 1<<22 )
+	
+	#define BKP_CLK_ENABLE()	( RCC->APB1ENR |= 1<<27 )
+	#define PWR_CLK_ENABLE()	( RCC->APB1ENR |= 1<<28 )
+	#define DAC_CLK_ENABLE()	( RCC->APB1ENR |= 1<<29 )
+	#define CEC_CLK_ENABLE()	( RCC->APB1ENR |= 1<<30 )
+
+	/*--------------- AHB CLOCK ENABLE MACROS ---------------*/
+	#define DMA_1_CLK_ENABLE()	( RCC->AHBENR |= 1<<0 )
+	#define DMA_2_CLK_ENABLE()	( RCC->AHBENR |= 1<<1 )
+	#define SRAM_CLK_ENABLE()	( RCC->AHBENR |= 1<<2 )
+	#define FLITF_CLK_ENABLE()	( RCC->AHBENR |= 1<<4 )
+	#define CRC_CLK_ENABLE()	( RCC->AHBENR |= 1<<6 )
+	#define FSMC_CLK_ENABLE()	( RCC->AHBENR |= 1<<8 )
+
 #endif
