@@ -1,13 +1,13 @@
 #ifndef GENERIC_H
 #define GENERIC_H
+		
+	#define DISABLE 	 0
+	#define	ENABLE 		 1
 	
-	typedef enum{
-		DISABLE 	= 0,
-		ENABLE 		= 1
-	}State;
+	#define LOW 		 0
+	#define HIGH 		 1
 
-	typedef enum{
-		LOW 		= 0,
-		HIGH 		= 1
-	}Logic_state;
+	#define Functional_state 	uint8_t 
+	#define Logic_state 		uint8_t 
+
 #endif

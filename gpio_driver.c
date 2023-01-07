@@ -12,7 +12,31 @@ void GPIO_Reset(GPIO_Handle_t *GPIO_X_Handle){
 };
 
 void GPIO_Clock_Control(GPIO_RegStruct_t *pGPIO_X , State state ){
-	//TODO
+	if(state == ENABLE){
+		if( pGPIO_X==GPIO_A ){
+			GPIO_A_CLK_ENABLE();
+		}else if(pGPIO_X==GPIO_B){
+			GPIO_B_CLK_ENABLE();
+		}else if(pGPIO_X==GPIO_C){
+			GPIO_C_CLK_ENABLE();
+		}else if(pGPIO_X==GPIO_D){
+			GPIO_D_CLK_ENABLE();
+		}else if(pGPIO_X==GPIO_E){
+			GPIO_E_CLK_ENABLE();
+		}
+	}else{
+		if( pGPIO_X==GPIO_A ){
+			GPIO_A_CLK_DISABLE();
+		}else if(pGPIO_X==GPIO_B){
+			GPIO_B_CLK_DISABLE();
+		}else if(pGPIO_X==GPIO_C){
+			GPIO_C_CLK_DISABLE();
+		}else if(pGPIO_X==GPIO_D){
+			GPIO_D_CLK_DISABLE();
+		}else if(pGPIO_X==GPIO_E){
+			GPIO_E_CLK_DISABLE();
+		}
+	}	
 };
 
 Logic_state GPIO_Read_Pin( GPIO_RegStruct_t *pGPIO_X, uint8_t pin_number ){
