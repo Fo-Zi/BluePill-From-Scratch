@@ -30,37 +30,32 @@
 * Preprocessor Constants
 *******************************************************************************/
 
-// General operational modes
-#define GPIO_MODE_IN			 0
-#define GPIO_MODE_OUT			 1
-#define GPIO_MODE_ALTFN			 2
-#define GPIO_MODE_ANALOG		 3
-#define GPIO_MODE_IT_FALL	 	 4
-#define GPIO_MODE_IT_RISI	 	 5
-#define GPIO_MODE_IT_RF		 	 6
+/*
+ * @see GPIO_Modes				// --------------------------------------------------------------------------- //
+ */						// 		The mode for x pin depends on both: CNF register & MODEy reg:
+// CNF register modes. If MODEy = 0		// --------------------------------------------------------------------------- //	
+#define GPIO_CNF_IN_ANALOG		0	//		MODEy_IN && CNF ANALOG  		== 0000 = 0
+#define GPIO_CNF_IN_FLOAT		1	//		MODEy_IN && CNF FLOAT   		== 0001 = 1
+#define GPIO_CNF_IN_PULL_UD		2	//		MODEy_IN && CNF PULL_UD 		== 0010 = 2
+#define GPIO_CNF_RESERVED		3	//		MODEy_IN && RESERVED 			== 0011 = 3    -------> This config shouldn't be set	
+// CNF register modes. If MODEy > 0		//		
+#define GPIO_CNF_OUT_PPULL		0	//		
+#define GPIO_CNF_OUT_ODRAIN		1	//		MODEy_OUT 10Mhz && CNF OUT_PPULL  	== 0100 = 4
+#define GPIO_CNF_ALTFN_PPULL		2	// -------	MODEy_OUT 10Mhz && CNF OUT_ODRAIN   	== 0101 = 5 
+#define GPIO_CNF_ALTFN_ODRAIN		3	// -------      MODEy_OUT 10Mhz && CNF ALTFN_PPULL 	== 0110 = 6
+						// -------	MODEy_OUT 10Mhz && CNF ALTFN_ODRAIN 	== 0111 = 7
+// MODEy register modes				// -------              
+#define GPIO_MODEy_IN			0	// -------      MODEy_OUT 2Mhz && CNF OUT_PPULL  	== 1000 = 8
+#define GPIO_MODEy_OUT_10MHz		1	//              MODEy_OUT 2Mhz && CNF OUT_ODRAIN   	== 1001 = 9
+#define GPIO_MODEy_OUT_2MHz		2	//              MODEy_OUT 2Mhz && CNF ALTFN_PPULL 	== 1010 = 10
+#define GPIO_MODEy_OUT_50MHz		3	//	        MODEy_OUT 2Mhz && CNF ALTFN_ODRAIN 	== 1011 = 11
+						//	
+						//		MODEy_OUT 50Mhz && CNF OUT_PPULL  	== 1100 = 12
+						//              MODEy_OUT 50Mhz && CNF OUT_ODRAIN   	== 1101 = 13
+						//              MODEy_OUT 50Mhz && CNF ALTFN_PPULL 	== 1110 = 14
+       						//		MODEy_OUT 50Mhz && CNF ALTFN_ODRAIN 	== 1111 = 15
+						// --------------------------------------------------------------------------- //	
 
-//#define GPIO_OUT_TYPE_PPULL 	0
-//#define GPIO_OUT_TYPE_ODRAIN 	1
-
-//#define GPIO_OUT_SPEED_MEDIUM 	0
-//#define GPIO_OUT_SPEED_LOW 	1
-//#define GPIO_OUT_SPEED_HIGH 	2
-
-// CNF register modes -> Depends on MODEy reg.
-#define GPIO_CNF_IN_ANALOG	0
-#define GPIO_CNF_IN_FLOAT	1
-#define GPIO_CNF_IN_PULL_UD	2
-
-#define GPIO_CNF_OUT_PPULL	0
-#define GPIO_CNF_OUT_ODRAIN	1
-#define GPIO_CNF_ALTFN_PPULL	2
-#define GPIO_CNF_ALTFN_ODRAIN	3
-
-// MODEy register modes
-#define GPIO_MODEy_IN			0
-#define GPIO_MODEy_OUT_10MHz		1
-#define GPIO_MODEy_OUT_2MHz		2
-#define GPIO_MODEy_OUT_50MHz		3
 
 /******************************************************************************
 * Configuration Constants
@@ -73,16 +68,17 @@
 /******************************************************************************
 * Typedefs
 *******************************************************************************/
-
+/*
+ * @see GPIO_PinConfig_t	
+ */			
 typedef struct{
-	uint8_t Pin_Number;
-	uint8_t Pin_Mode;
-	uint8_t Pin_Speed;
-	uint8_t Pin_PuPdControl;
-	uint8_t Pin_OPType;
-	uint8_t Pin_AltFunct_Mode;
+	uint8_t 	Pin_Number;
+	uint16_t 	Pin_Mode;
 }GPIO_PinConfig_t;
 
+/*
+ * @see GPIO_Handle_t	
+ */			
 typedef struct{
 	GPIO_RegStruct_t *pGPIO_X;
 	GPIO_PinConfig_t GPIO_PinConfig;

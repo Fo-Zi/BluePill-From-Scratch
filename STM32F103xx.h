@@ -8,15 +8,24 @@
 
 
 	/*--------------- MEMORY AND BUSES BASE ADDRESSES  ---------------*/
+	/*
+         * @see Memory_Base_Addresses	
+         */
 	#define FLASH_BASE_ADDR 	0x08000000UL
 	#define SRAM_BASE_ADDR		0x20000000UL
 	#define ROM_BASE_ADDR		0x1FFFF000UL
 
+	/*
+	 * @see Buses_Base_Addresses	
+	 */
 	#define AHB_BASE_ADDR		0x40020000UL
 	#define APB_1_BASE_ADDR		0x40000000UL
 	#define APB_2_BASE_ADDR		0x40010000UL
 	
 	/*--------------- AHB PERIPHERALS BASE ADDRESSES  ---------------*/
+	/*
+	 * @see AHB_Peripherals_Base_Addresses	
+	 */
 	#define DMA_1_BASE_ADDR		AHB_BASE_ADDR 
 	#define RCC_BASE_ADDR		( AHB_BASE_ADDR + 0x1000U ) 
 	#define FLASH_INTERF_BASE_ADDR	( AHB_BASE_ADDR + 0x2000U ) 
@@ -24,6 +33,9 @@
 
 	
 	/*--------------- APB1 PERIPHERALS BASE ADDRESSES  ---------------*/
+	/*
+	 * @see APB1_Peripherals_Base_Addresses	
+	 */
 	#define TIM_2_BASE_ADDR		APB_1_BASE_ADDR	
 	#define TIM_3_BASE_ADDR		( APB_1_BASE_ADDR + 0x400U )
 	#define TIM_4_BASE_ADDR		( APB_1_BASE_ADDR + 0x800U )
@@ -43,6 +55,9 @@
 	#define CEC_BASE_ADDR		( APB_1_BASE_ADDR + 0x7800U )
 	
 	/*--------------- APB2 PERIPHERALS BASE ADDRESSES  ---------------*/
+	/*
+	 * @see APB2_Peripherals_Base_Addresses	
+	 */
 	#define AFIO_BASE_ADDR 		APB_2_BASE_ADDR 
 	#define EXTI_BASE_ADDR 		( APB_2_BASE_ADDR + 0x0400U ) 
 	#define GPIO_A_BASE_ADDR 	( APB_2_BASE_ADDR + 0x0800U ) 
@@ -59,6 +74,9 @@
 	#define TIM_17_BASE_ADDR 	( APB_2_BASE_ADDR + 0x4800U ) 
 
 	/*--------------- GPIO REGISTER's STRUCT  ---------------*/
+	/*
+	 * @see GPIO_RegStruct_t	
+	 */			
 	typedef struct{
 		__vo uint32_t CRL;	
 		__vo uint32_t CRH;	
@@ -78,6 +96,9 @@
 
 
 	/*--------------- RCC REGISTER's STRUCT  ---------------*/
+	/*
+	 * @see RCC_RegStruct_t	
+	 */			
 	typedef struct{
 		__vo uint32_t CR;	
 		__vo uint32_t CFGR;	
@@ -95,6 +116,10 @@
 	/*--------------- RCC REGISTER's DEF ---------------*/
 	#define RCC 		( (RCC_RegStruct_t*) RCC_BASE_ADDR )	
 
+
+	/*
+	 * @see Clock_Enable_Macros	
+	 */			
 	/*--------------- APB2 CLOCK ENABLE MACROS ---------------*/
 	#define AFIO_CLK_ENABLE()	( RCC->APB2ENR |= 1<<0 )
 	#define GPIO_A_CLK_ENABLE()	( RCC->APB2ENR |= 1<<2 )
@@ -145,6 +170,10 @@
 	#define CRC_CLK_ENABLE()	( RCC->AHBENR |= 1<<6 )
 	#define FSMC_CLK_ENABLE()	( RCC->AHBENR |= 1<<8 )
 
+
+	/*
+	 * @see Clock_Disable_Macros	
+	 */			
 	/*--------------- APB2 CLOCK DISABLE MACROS ---------------*/
 	#define AFIO_CLK_DISABLE()	( RCC->APB2ENR &= ~( 1<<0 ) )
 	#define GPIO_A_CLK_DISABLE()	( RCC->APB2ENR &= ~( 1<<2 ) )
@@ -194,5 +223,19 @@
 	#define FLITF_CLK_DISABLE()	( RCC->AHBENR &= ~( 1<<4 ) )
 	#define CRC_CLK_DISABLE()	( RCC->AHBENR &= ~( 1<<6 ) )
 	#define FSMC_CLK_DISABLE()	( RCC->AHBENR &= ~( 1<<8 ) )
+
+	/*--------------- GPIO PORTS RESET MACROS  ---------------*/
+	/*
+         * @see GPIO_Reg_Reset_Macros	
+         */			
+	#define GPIO_A_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 2 ); ( RCC-> APB2RSTR &= ~( 1 << 2 )); } while (0)
+	#define GPIO_B_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 3 ); ( RCC-> APB2RSTR &= ~( 1 << 3 )); } while (0)
+	#define GPIO_C_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 4 ); ( RCC-> APB2RSTR &= ~( 1 << 4 )); } while (0)
+	#define GPIO_D_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 5 ); ( RCC-> APB2RSTR &= ~( 1 << 5 )); } while (0)
+	#define GPIO_E_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 6 ); ( RCC-> APB2RSTR &= ~( 1 << 6 )); } while (0)
+	#define GPIO_F_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 7 ); ( RCC-> APB2RSTR &= ~( 1 << 7 )); } while (0)
+	#define GPIO_G_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 8 ); ( RCC-> APB2RSTR &= ~( 1 << 8 )); } while (0)
+
+
 
 #endif
