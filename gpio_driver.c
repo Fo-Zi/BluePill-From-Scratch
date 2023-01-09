@@ -50,7 +50,7 @@ void GPIO_Init(GPIO_Handle_t *GPIO_X_Handle){
 	if( pinNumber_temp < 7 ){
 		 ( GPIO_X_Handle->pGPIO_X )->CRL |= mode_temp << ( 4 * (pinNumber_temp)) ; 					
 	}else{
-		 ( GPIO_X_Handle->pGPIO_X )->CRL |= mode_temp << ( 4 * ( pinNumber_temp - 8 )) ; 					
+		 ( GPIO_X_Handle->pGPIO_X )->CRH |= mode_temp << ( 4 * ( pinNumber_temp - 8 )) ; 					
 	}
 	
 };
@@ -337,7 +337,8 @@ void GPIO_Toggle_Port( GPIO_RegStruct_t *pGPIO_X ){
 *
 *******************************************************************************/
 void GPIO_IRQ_Config(uint8_t IRQ_number, uint8_t IRQ_priority, State state){
-	//TODO
+
+	
 };
 
 /******************************************************************************
