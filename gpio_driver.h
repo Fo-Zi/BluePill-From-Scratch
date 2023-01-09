@@ -94,6 +94,7 @@ typedef struct{
 
 // Config functions
 void GPIO_Init 			( GPIO_Handle_t *GPIO_X_Handle 						);
+void GPIO_DeInit 		( GPIO_Handle_t *GPIO_X_Handle 						);
 void GPIO_Reset			( GPIO_Handle_t *GPIO_X_Handle 						);
 void GPIO_Clock_Control		( GPIO_RegStruct_t *pGPIO_X , Functional_state state 			);
 
@@ -102,7 +103,7 @@ Logic_state GPIO_Read_Pin 	( GPIO_RegStruct_t *pGPIO_X , uint8_t pin_number 			)
 uint16_t GPIO_Read_Port 	( GPIO_RegStruct_t *pGPIO_X 						);
 void GPIO_Write_Pin 		( GPIO_RegStruct_t *pGPIO_X , uint8_t pin_number, Logic_state state 	);
 void GPIO_Write_Port 		( GPIO_RegStruct_t *pGPIO_X , uint16_t states 				);
-void GPIO_Toggle_Pin 		( GPIO_RegStruct_t *pGPIO_X , uint8_t pin_number 			);
+void GPIO_Toggle_Pin 		( GPIO_RegStruct_t *pGPIO_X , uint16_t pin_number 			);
 void GPIO_Toggle_Port 		( GPIO_RegStruct_t *pGPIO_X 						);
 
 // Interrput functions

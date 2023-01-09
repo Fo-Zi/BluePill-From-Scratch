@@ -77,8 +77,23 @@ void GPIO_Init(GPIO_Handle_t *GPIO_X_Handle){
 * @see GPIO_RegStruct_t
 *
 *******************************************************************************/
-void GPIO_Reset(GPIO_Handle_t *GPIO_X_Handle){
-	//TODO
+void GPIO_DeInit(GPIO_Handle_t *GPIO_X_Handle){
+	if( GPIO_X_Handle -> pGPIO_X==GPIO_A ){
+		GPIO_A_REG_RESET();
+
+	}else if(GPIO_X_Handle -> pGPIO_X==GPIO_B){
+		GPIO_B_REG_RESET();
+
+	}else if(GPIO_X_Handle -> pGPIO_X==GPIO_C){
+		GPIO_C_CLK_ENABLE();
+		
+	}else if(GPIO_X_Handle -> pGPIO_X==GPIO_D){
+		GPIO_D_CLK_ENABLE();
+
+	}else if(GPIO_X_Handle -> pGPIO_X==GPIO_E){
+		GPIO_E_CLK_ENABLE();
+
+	}
 };
 
 
@@ -99,9 +114,9 @@ void GPIO_Reset(GPIO_Handle_t *GPIO_X_Handle){
 *
 * @return 	void
 *
-* @see GPIO_Handle_t 
-* @see GPIO_PinConfig_t 
 * @see GPIO_RegStruct_t
+* @see Clock_Enable_Macros
+* @see Clock_Disable_Macros
 *
 *******************************************************************************/
 void GPIO_Clock_Control( GPIO_RegStruct_t *pGPIO_X , Functional_state state ){
@@ -159,13 +174,12 @@ void GPIO_Clock_Control( GPIO_RegStruct_t *pGPIO_X , Functional_state state ){
 *
 * @return 	void
 *
-* @see GPIO_Handle_t 
-* @see GPIO_PinConfig_t 
 * @see GPIO_RegStruct_t
 *
 *******************************************************************************/
 Logic_state GPIO_Read_Pin( GPIO_RegStruct_t *pGPIO_X, uint8_t pin_number ){
-	//TODO
+	Logic_state ls = (uint8_t) ((( pGPIO_X -> IDR ) >> pin_number ) & 0x1 )  ;	
+	return ls;
 };
 
 /******************************************************************************
@@ -183,15 +197,14 @@ Logic_state GPIO_Read_Pin( GPIO_RegStruct_t *pGPIO_X, uint8_t pin_number ){
 *		a pointer to the struct registers common to all ports, and a pin config struct
 *		that holds the operation modes and pin number.
 *
-* @return 	void
+* @return 	uint16_t -> An array of logical values expressed as an integer of 16 bits.
 *
-* @see GPIO_Handle_t 
-* @see GPIO_PinConfig_t 
 * @see GPIO_RegStruct_t
 *
 *******************************************************************************/
 uint16_t GPIO_Read_Port( GPIO_RegStruct_t *pGPIO_X ){
-	//TODO
+	uint16_t LStates_arr = (uint16_t) ( pGPIO_X -> IDR )     ;	
+	return LStates_arr;
 };
 
 /******************************************************************************
@@ -211,13 +224,16 @@ uint16_t GPIO_Read_Port( GPIO_RegStruct_t *pGPIO_X ){
 *
 * @return 	void
 *
-* @see GPIO_Handle_t 
 * @see GPIO_PinConfig_t 
 * @see GPIO_RegStruct_t
 *
 *******************************************************************************/
 void GPIO_Write_Pin( GPIO_RegStruct_t *pGPIO_X, uint8_t pin_number, Logic_state state ){
-	//TODO
+	if( state == 1 ){
+		pGPIO_X -> ODR |= (uint16_t) ( 1 << pin_number  );	
+	}else if(state == 0){
+		pGPIO_X -> ODR &= (uint16_t) ~( 1 << pin_number  );	
+	}
 };
 
 /******************************************************************************
@@ -243,7 +259,7 @@ void GPIO_Write_Pin( GPIO_RegStruct_t *pGPIO_X, uint8_t pin_number, Logic_state 
 *
 *******************************************************************************/
 void GPIO_Write_Port( GPIO_RegStruct_t *pGPIO_X,  uint16_t states ){
-	//TODO
+	pGPIO_X -> ODR =  states;	
 };
 
 /******************************************************************************
@@ -268,8 +284,8 @@ void GPIO_Write_Port( GPIO_RegStruct_t *pGPIO_X,  uint16_t states ){
 * @see GPIO_RegStruct_t
 *
 *******************************************************************************/
-void GPIO_Toggle_Pin( GPIO_RegStruct_t *pGPIO_X, uint8_t pin_number ){
-	//TODO
+void GPIO_Toggle_Pin( GPIO_RegStruct_t *pGPIO_X, uint16_t pin_number ){
+	pGPIO_X -> ODR ^= (uint16_t) ( 1 << pin_number ) ; 
 };
 
 /******************************************************************************
@@ -295,7 +311,7 @@ void GPIO_Toggle_Pin( GPIO_RegStruct_t *pGPIO_X, uint8_t pin_number ){
 *
 *******************************************************************************/
 void GPIO_Toggle_Port( GPIO_RegStruct_t *pGPIO_X ){
-	//TODO
+	pGPIO_X -> ODR ^= 0xFFFF;	
 };
 
 /******************************************************************************

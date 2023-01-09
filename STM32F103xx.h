@@ -228,14 +228,13 @@
 	/*
          * @see GPIO_Reg_Reset_Macros	
          */			
-	#define GPIO_A_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 2 ); ( RCC-> APB2RSTR &= ~( 1 << 2 )); } while (0)
-	#define GPIO_B_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 3 ); ( RCC-> APB2RSTR &= ~( 1 << 3 )); } while (0)
-	#define GPIO_C_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 4 ); ( RCC-> APB2RSTR &= ~( 1 << 4 )); } while (0)
-	#define GPIO_D_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 5 ); ( RCC-> APB2RSTR &= ~( 1 << 5 )); } while (0)
-	#define GPIO_E_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 6 ); ( RCC-> APB2RSTR &= ~( 1 << 6 )); } while (0)
-	#define GPIO_F_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 7 ); ( RCC-> APB2RSTR &= ~( 1 << 7 )); } while (0)
-	#define GPIO_G_REG_RESET	do{ ( RCC-> APB2RSTR |= 1 << 8 ); ( RCC-> APB2RSTR &= ~( 1 << 8 )); } while (0)
-
+	#define GPIO_A_REG_RESET()	do{ ( RCC-> APB2RSTR |= 1 << 2 ); ( RCC-> APB2RSTR &= ~( 1 << 2 )); } while (0)
+	#define GPIO_B_REG_RESET()	do{ ( RCC-> APB2RSTR |= 1 << 3 ); ( RCC-> APB2RSTR &= ~( 1 << 3 )); } while (0)
+	#define GPIO_C_REG_RESET()	do{ ( RCC-> APB2RSTR |= 1 << 4 ); ( RCC-> APB2RSTR &= ~( 1 << 4 )); } while (0)
+	#define GPIO_D_REG_RESET()	do{ ( RCC-> APB2RSTR |= 1 << 5 ); ( RCC-> APB2RSTR &= ~( 1 << 5 )); } while (0)
+	#define GPIO_E_REG_RESET()	do{ ( RCC-> APB2RSTR |= 1 << 6 ); ( RCC-> APB2RSTR &= ~( 1 << 6 )); } while (0)
+	#define GPIO_F_REG_RESET()	do{ ( RCC-> APB2RSTR |= 1 << 7 ); ( RCC-> APB2RSTR &= ~( 1 << 7 )); } while (0)
+	#define GPIO_G_REG_RESET()	do{ ( RCC-> APB2RSTR |= 1 << 8 ); ( RCC-> APB2RSTR &= ~( 1 << 8 )); } while (0)
 
 
 #endif
